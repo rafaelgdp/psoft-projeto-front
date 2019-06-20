@@ -1,9 +1,5 @@
 var ajax = new XMLHttpRequest();
 
-let host = 'localhost'
-let port = 8080
-let registerUri = '/v1/auth/register'
-
 function getURL(host, port, uri) {
     return "http://" + host + ":" + port + uri;
 }
@@ -27,20 +23,35 @@ function register() {
 
     console.log("Entrei na function com " + JSON.stringify(user));
 
-    fetch(getURL(host, port, registerUri), {
+    let host = 'localhost'
+    let port = 8080
+    let registerUri = '/v1/auth/register'
+
+    let httpRequest = {
         method: "POST",
         mode: "no-cors",
+        cache: "no-cache",
+        credentials: 'same-origin',
         headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            "Access-Control-Allow-Headers": "*"
+            "Content-type": "application/json",
+            "Access-Control-Allow-Origin": "*"
         },
+        redirect: "follow",
+        referrer: "no-referrer",
         body: JSON.stringify(user)
-    })  .then((response) => response.json())
-        .then(function (data) {
+    }
+
+    fetch(getURL(host, port, registerUri), httpRequest)
+        .then((response) => {
+            console.log("here")
+            console.log(response)
+            return response.json()
+        })
+        .then((data) => {
             console.log('Request succeeded with JSON response', data);
         })
-        .catch(function (error) {
-            console.log('Request failed', error);
+        .catch((error) => {
+            console.log('Request failed!!!!! ', error);
         });
 
 }
