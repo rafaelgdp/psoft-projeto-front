@@ -1,11 +1,8 @@
-var ajax = new XMLHttpRequest();
-
-function getURL(host, port, uri) {
-    return "http://" + host + ":" + port + uri;
-}
+var imported = document.createElement('script');
+imported.src = '../utils.js';
+document.head.appendChild(imported);
 
 document.getElementById("submitBtn").onclick = register;
-
 
 function register() {
 
@@ -15,13 +12,11 @@ function register() {
     let password = document.getElementById("password").value;
 
     let user = {
-        "name": firstName,
-        //"lastName": lastName,
-        "login": email,
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
         "password": password
     };
-
-    console.log("Entrei na function com " + JSON.stringify(user));
 
     let host = 'localhost'
     let port = 8080
@@ -29,39 +24,41 @@ function register() {
 
     let httpRequest = {
         method: "POST",
-        mode: "no-cors",
         cache: "no-cache",
-        // credentials: 'same-origin',
         headers: {
             "Content-type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
-        // redirect: "follow",
-        // referrer: "no-referrer",
         body: JSON.stringify(user)
     }
 
+    let ok = false;
+
     fetch(getURL(host, port, registerUri), httpRequest)
         .then((response) => {
-            console.log("here")
-            console.log(response)
+            if (response.status == 406) {
+                alert("Já existe um usuário com esse email cadastrado!")
+            } else {
+                if (response.ok) {
+                    ok = true
+                } else {
+                    alert("Ocorreu algum erro!")
+                }
+            }
             return response.json()
         })
         .then((data) => {
-            console.log('Request succeeded with JSON response', data);
+            if (ok) {
+                alert("Usuário criado '" + data.email + "' com sucesso!")
+            }
         })
         .catch((error) => {
-            console.log('Request failed!!!!! ', error);
+            if (error.contains("There is")) {
+                alert("Já existe um usuário com esse e-mail cadastrado(a)!")
+            } else {
+                alert("O pedido falhou!")
+            }
+            console.log('Request failed: ', error);
         });
 
-}
-
-// Cria um evento para receber o retorno.
-ajax.onreadystatechange = function() {
-    // Caso o state seja 4 e o http.status for 200, é porque a requisiçõe deu certo.
-	if (ajax.readyState == 4 && ajax.status == 200) {
-		var data = ajax.responseText;
-        // Retorno do Ajax
-        console.log("Retorno do backend: ");
-        console.log(data);}
 }

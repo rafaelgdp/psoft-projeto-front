@@ -1,19 +1,17 @@
 const https = require('http')
 
 const data = JSON.stringify({
-        name: "Rafael",
-        //firstName: "Rafael",
-        //lastName: "Pontes",
-        //email: "rafael@ufcg",
-        login: "raf",
+        firstName: "Rafael",
+        lastName: "Pontes",
+        email: "rafael@ufcg",
         password: 123
     }
 )
 
 const options = {
-  hostname: '127.0.0.1',
+  hostname: 'localhost',
   port: 8080,
-  path: '/v1/auth/register',
+  path: '/api/v1/auth/register',
   method: 'POST',
   mode: "no-cors",
   cache: "no-cache",
