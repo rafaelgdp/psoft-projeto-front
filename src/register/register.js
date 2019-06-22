@@ -15,9 +15,9 @@ function register() {
     let password = document.getElementById("password").value;
 
     let user = {
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email,
+        "name": firstName,
+        //"lastName": lastName,
+        "login": email,
         "password": password
     };
 
@@ -31,13 +31,13 @@ function register() {
         method: "POST",
         mode: "no-cors",
         cache: "no-cache",
-        credentials: 'same-origin',
+        // credentials: 'same-origin',
         headers: {
             "Content-type": "application/json",
             "Access-Control-Allow-Origin": "*"
         },
-        redirect: "follow",
-        referrer: "no-referrer",
+        // redirect: "follow",
+        // referrer: "no-referrer",
         body: JSON.stringify(user)
     }
 
