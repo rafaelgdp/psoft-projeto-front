@@ -1,0 +1,8 @@
+{
+    "host": "localhost",
+    "port": 8080,
+    "debug": true,
+    "path-prefix": "",
+    "register-uri": "/v1/auth/register",
+    "login-uri": "/home/home.html"
+}

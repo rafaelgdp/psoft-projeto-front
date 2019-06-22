@@ -1,3 +1,7 @@
+// Carregando configuração
+fetch('../config.json').then((cr) => cr.json()).then((config) => {
+
+// Adicionando Utils.
 var imported = document.createElement('script');
 imported.src = '../utils.js';
 document.head.appendChild(imported);
@@ -18,9 +22,17 @@ function register() {
         "password": password
     };
 
-    let host = 'localhost'
-    let port = 8080
-    let registerUri = '/v1/auth/register'
+    for (let p in user) {
+        if (user[p] == "") {
+            // If any field's empty, cancel operation!
+            alert("Campo com '" + p + "' está vazio!")
+            return
+        }
+    }
+
+    let host = config.host
+    let port = config.port
+    let registerUri = config['path-prefix'] + config['register-uri']
 
     let httpRequest = {
         method: "POST",
@@ -35,30 +47,27 @@ function register() {
     let ok = false;
 
     fetch(getURL(host, port, registerUri), httpRequest)
-        .then((response) => {
-            if (response.status == 406) {
-                alert("Já existe um usuário com esse email cadastrado!")
+    .then((response) => {
+        if (response.status == 406) {
+            alert("Já existe um usuário com esse email cadastrado!")
+        } else {
+            if (response.ok) {
+                ok = true
             } else {
-                if (response.ok) {
-                    ok = true
-                } else {
-                    alert("Ocorreu algum erro!")
-                }
+                alert("Ocorreu algum erro!")
             }
-            return response.json()
-        })
-        .then((data) => {
-            if (ok) {
-                alert("Usuário criado '" + data.email + "' com sucesso!")
-            }
-        })
-        .catch((error) => {
-            if (error.contains("There is")) {
-                alert("Já existe um usuário com esse e-mail cadastrado(a)!")
-            } else {
-                alert("O pedido falhou!")
-            }
-            console.log('Request failed: ', error);
-        });
-
+        }
+        return response.json()
+    })
+    .then((data) => {
+        if (ok) {
+            alert("Usuário criado '" + data.email + "' com sucesso!")
+        }
+    })
+    .catch((error) => {
+        console.log('Request failed: ', error);
+        alert("Erro: " + error)
+    });
 }
+
+}) // end of fetch config

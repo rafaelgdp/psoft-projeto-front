@@ -1,49 +1,63 @@
-var imported = document.createElement('script');
-imported.src = '../utils.js';
-document.head.appendChild(imported);
+// Carregando configuração
+fetch('../config.json').then((cr) => cr.json()).then((config) => {
 
-document.getElementById("entrarBtn").onclick = function () {
+    // Adicionando Utils.
+    var imported = document.createElement('script');
+    imported.src = '../utils.js';
+    document.head.appendChild(imported);
 
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+    document.getElementById("entrarBtn").onclick = async function () {
 
-    let user = {
-        "email": email,
-        "password": password
-    };
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
 
-    let host = 'localhost'
-    let port = 8080
-    let registerUri = '/v1/auth/login'
+        let user = {
+            "email": email,
+            "password": password
+        };
 
-    let httpRequest = {
-        method: "POST",
-        cache: "no-cache",
-        headers: {
-            "Content-type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        },
-        body: JSON.stringify(user)
+        let host = config.host
+        let port = config.port
+        let registerUri = config["path-prefix"] + config["login-uri"]
+
+        let httpPostRequest = {
+            method: "POST",
+            cache: "no-cache",
+            headers: {
+                "Content-type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: JSON.stringify(user)
+        }
+
+        let ok = false
+
+        fetch(getURL(host, port, registerUri), httpPostRequest)
+            .then((response) => {
+                ok = response.ok
+                if (response.status == 400) {
+                    alert("Usuário e/ou senha incorreto(s)!")
+                }
+                return response.json()
+            })
+            .then((data) => {
+                if (ok) {
+                    window.localStorage.setItem("token", data.token);
+                    window.localStorage.setItem("user", parseJwt(data.token).user)
+                    alert("Logado com sucesso!")
+                    updateLoggedInUi()
+                }
+            })
+            .catch((error) => {
+                console.log('Request failed: ', error);
+            });
     }
 
-    let ok = false
+    function updateLoggedInUi() {
+        let user = window.localStorage.getItem("user")
+        if (user != "undefined") {
+            window.location.pathname = config['logged-uri']
+        }
+    }
 
-    fetch(getURL(host, port, registerUri), httpRequest)
-        .then((response) => {
-            ok = response.ok
-            if (response.status == 400) {
-                alert("Usuário e/ou senha incorreto(s)!")
-            }
-            return response.json()
-        })
-        .then((data) => {
-            if (ok) {
-                window.localStorage.setItem("token", data.token);
-                alert("Logado com sucesso!")
-            }
-        })
-        .catch((error) => {
-            console.log('Request failed: ', error);
-        });
-}
-
+}) // end of fetch config
