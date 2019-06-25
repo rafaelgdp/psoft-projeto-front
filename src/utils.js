@@ -16,3 +16,5 @@ function parseJwt(token) {
 
     return JSON.parse(jsonPayload);
 }
+
+export { getURL, debugLog, parseJwt };
