@@ -4,5 +4,6 @@
     "debug": true,
     "path-prefix": "",
     "register-uri": "/v1/auth/register",
-    "login-uri": "/home/home.html"
+    "login-uri": "/v1/auth/login",
+    "logged-uri": "/home/home.html"
 }

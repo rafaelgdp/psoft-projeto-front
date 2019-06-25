@@ -1,10 +1,7 @@
+import { getURL } from '../utils.js'
+
 // Carregando configuração
 fetch('../config.json').then((cr) => cr.json()).then((config) => {
-
-// Adicionando Utils.
-var imported = document.createElement('script');
-imported.src = '../utils.js';
-document.head.appendChild(imported);
 
 document.getElementById("submitBtn").onclick = register;
 
