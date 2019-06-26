@@ -5,5 +5,6 @@
     "path-prefix": "",
     "register-uri": "/v1/auth/register",
     "login-uri": "/v1/auth/login",
+    "login-page": "/login/login.html",
     "logged-uri": "/home/home.html"
 }

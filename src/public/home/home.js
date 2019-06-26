@@ -15,7 +15,9 @@ function updateUiWithUserInfo(user) {
     if (user != null) {
         let title = document.getElementById("greeting-title")
         title.innerHTML = "Bem-vind@, " + (user.firstName || "anônimo") + "!"
-        console.log("Atualizei user..,.")
+        document.getElementById("loadingMessage").style.display = "none"
+        document.getElementById("app").style.visibility = "visible"
+        fetch()
     } else {
         console.log("User chegou null")
     }
