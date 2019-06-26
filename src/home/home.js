@@ -14,7 +14,10 @@ function checkUser() {
 function updateUiWithUserInfo(user) {
     if (user != null) {
         let title = document.getElementById("greeting-title")
-        title.innerHTML = "Bem-vind@, " + (user.name || "anônimo") + "!"
+        title.innerHTML = "Bem-vind@, " + (user.firstName || "anônimo") + "!"
+        console.log("Atualizei user..,.")
+    } else {
+        console.log("User chegou null")
     }
 }
 
@@ -26,7 +29,7 @@ function checkAndUpdate() {
     console.log("Checking...")
     if (isLoadingPage) {
         if (checkUser()) {
-            updateUiWithUserInfo(parseJwt(window.localStorage.getItem("token")).user)
+            updateUiWithUserInfo(parseJwt(window.sessionStorage.accessToken).user)
             isLoadingPage = false;
             clearTimeout(loadPage)
             console.log("Logged in!")

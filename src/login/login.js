@@ -39,8 +39,7 @@ document.getElementById("entrarBtn").onclick = async function () {
         })
         .then((data) => {
             if (ok) {
-                window.localStorage.setItem("token", data.token);
-                window.localStorage.setItem("user", parseJwt(data.token).user)
+                window.sessionStorage.accessToken = data.token;
                 alert("Logado com sucesso!")
                 updateLoggedInUi()
             }
@@ -51,7 +50,7 @@ document.getElementById("entrarBtn").onclick = async function () {
 }
 
 function updateLoggedInUi() {
-    let user = window.localStorage.getItem("user")
+    let user = parseJwt(window.sessionStorage.accessToken).user
     if (user != "undefined") {
         window.location.pathname = config['logged-uri']
     }
