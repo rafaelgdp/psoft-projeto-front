@@ -10,8 +10,15 @@
     <h1 id="loadingMessage">Carregando...</h1>
     <main style="visibility: hidden" id="app">
         <h1 id="greeting-title"></h1>
-        <p>A seguir, estão as disciplinas do curso às quais você tem acesso para curtir e comentar.</p>
-        <ul id="courses-list">
+        <p>Digite o nome da disciplina que deseja acessar:</p>
+        <input id="course" type="text">
+        <button id="searchBtn">Buscar</button>
+        <p>Ou, clique no botão para visualizar todas as disciplinas.</p>
+        <button id="seeAllBtn">Ver todas</button>
+        <div style="display: none">
+            <p id="listMsg"></p>
+            <ul id="courses-list">
+        </div>
         </ul>
     </main>
     

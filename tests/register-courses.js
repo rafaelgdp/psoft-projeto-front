@@ -11,7 +11,7 @@ const data = JSON.stringify({
 const options = {
   hostname: 'localhost',
   port: 8080,
-  path: '/api/v1/auth/register',
+  path: '/v1/auth/courses',
   method: 'POST',
   mode: "no-cors",
   cache: "no-cache",

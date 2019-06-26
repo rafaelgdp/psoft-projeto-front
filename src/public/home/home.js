@@ -3,7 +3,7 @@ import { parseJwt } from '../utils.js';
 fetch('../config.json').then((cr) => cr.json()).then((config) => {
 
 function checkUser() {
-    let token = window.localStorage.getItem("token")
+    let token = window.sessionStorage.accessToken
     if (token == null) return false
     let parsedToken = parseJwt(token)
     if (parsedToken.user == null)
@@ -17,7 +17,6 @@ function updateUiWithUserInfo(user) {
         title.innerHTML = "Bem-vind@, " + (user.firstName || "anônimo") + "!"
         document.getElementById("loadingMessage").style.display = "none"
         document.getElementById("app").style.visibility = "visible"
-        fetch()
     } else {
         console.log("User chegou null")
     }
