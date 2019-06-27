@@ -1,4 +1,4 @@
-import { getURL, parseJwt } from '../utils.js'
+import { getURL } from '../utils.js'
 
 // Carregando configuração
 fetch('../config.json').then((cr) => cr.json()).then((config) => {
@@ -40,6 +40,7 @@ document.getElementById("entrarBtn").onclick = async function () {
         .then((data) => {
             if (ok) {
                 window.sessionStorage.accessToken = data.token;
+                window.sessionStorage.setItem("user", JSON.stringify(data.user))
                 alert("Logado com sucesso!")
                 updateLoggedInUi()
             }
@@ -50,7 +51,7 @@ document.getElementById("entrarBtn").onclick = async function () {
 }
 
 function updateLoggedInUi() {
-    let user = parseJwt(window.sessionStorage.accessToken).user
+    let user = window.sessionStorage.getItem("user")
     if (user != "undefined") {
         window.location.pathname = config['logged-uri']
     }
