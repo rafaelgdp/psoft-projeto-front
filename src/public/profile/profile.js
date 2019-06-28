@@ -1,5 +1,5 @@
 import { getURL } from '../utils.js'
-import "./LikeView.js"
+import "./components/LikeView.js"
 
 // Carregando configuração
 fetch('../config.json').then((cr) => cr.json()).then((config) => {
