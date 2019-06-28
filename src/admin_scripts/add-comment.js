@@ -14,7 +14,7 @@ function addComment(author, msg) {
   const options = {
     hostname: 'localhost',
     port: 8080,
-    path: '/v1/courses/addcomment?id=95',
+    path: '/v1/courses/comment?id=95',
     method: 'POST',
     mode: "no-cors",
     cache: "no-cache",

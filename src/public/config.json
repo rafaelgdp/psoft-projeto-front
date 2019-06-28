@@ -8,5 +8,6 @@
     "login-page": "/login/login.html",
     "logged-uri": "/home/home.html",
     "search-course-substring-uri": "/v1/courses/find",
-    "course-profile-uri": "/v1/courses/profile"
+    "course-profile-uri": "/v1/courses/profile",
+    "course-comments-uri": "/v1/courses/comments"
 }

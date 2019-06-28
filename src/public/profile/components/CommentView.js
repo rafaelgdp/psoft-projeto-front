@@ -5,15 +5,19 @@ class CommentView extends HTMLElement {
     }
 
     connectedCallback() {
-        this.likes = this.getAttribute('comment');
-        this.likeCount = this.likes.length
+        this.author = this.getAttribute('author');
+        this.date = this.getAttribute('date');
+        this.message = this.getAttribute('message');
         this.render();
     }
 
     render() {
         this.$shadow.innerHTML =
-            `<p class="likes">Número de likes: ${this.likeCount}</p>`;
+            `<link rel="stylesheet" href="./components/comment.css">
+             <hr>
+             <p><span class="author">${this.author}</span> disse <span class="message">'${this.message}'</span> às <time class="at">${this.date}</time>.</p>
+             <hr>`;
     }
 }
 
-window.customElements.define('comment-view', LikeView)
+window.customElements.define('comment-view', CommentView)
