@@ -61,7 +61,7 @@ function register() {
     })
     .then((data) => {
         if (ok) {
-            alert("Usuário criado '" + data.email + "' com sucesso!")
+            console.log("Usuário criado '" + data.email + "' com sucesso!")
             window.location.pathname = config['login-page']
         }
     })

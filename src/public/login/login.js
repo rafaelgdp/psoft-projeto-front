@@ -44,7 +44,7 @@ document.getElementById("entrarBtn").onclick = async function () {
             if (ok) {
                 window.sessionStorage.accessToken = data.token;
                 window.sessionStorage.setItem("user", JSON.stringify(data.user))
-                alert("Logado com sucesso!")
+                console.log("Logado com sucesso!")
                 updateLoggedInUi()
             }
         })

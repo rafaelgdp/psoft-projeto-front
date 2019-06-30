@@ -17,7 +17,7 @@ ul {
     padding: 14px 16px;
     text-decoration: none;
   }
-  
+
   /* Change the link color to #111 (black) on hover */
   li a:hover {
     background-color: #111;
@@ -27,4 +27,22 @@ ul {
     position: -webkit-sticky; /* Safari */
     position: sticky;
     top: 0;
+  }
+
+  img {
+    display: block;
+    top: 11px;
+    float: left;
+    -webkit-filter: invert(1);
+    filter: invert(1);
+    position: relative;
+  }
+
+  #user {
+    display: block;
+    color: white;
+    text-align: center;
+    float: right;
+    padding: 14px 16px;
+    text-decoration: none;
   }

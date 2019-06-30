@@ -1,5 +1,5 @@
 {
-    "host": "localhost",
+    "host": "192.168.0.22",
     "port": 8080,
     "debug": true,
     "path-prefix": "",
@@ -12,7 +12,7 @@
     "course-comments-uri": "/v1/courses/comments",
     "new-comment-uri": "/v1/courses/comment",
 
-    "front-host": "localhost",
+    "front-host": "192.168.0.22",
     "front-port": 8081,
     "front-login": "/login/login.html",
     "front-home": "/home/home.html",

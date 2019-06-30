@@ -24,10 +24,12 @@ class NavbarView extends HTMLElement {
     render() {
         if (window.sessionStorage.accessToken != null &&
             JSON.parse(window.sessionStorage.getItem("user")) != null) {
+                let name = JSON.parse(window.sessionStorage.getItem("user")).firstName;
                 this.$shadow.innerHTML =
                 `<link rel="stylesheet" href="../global_components/navbar.css">
                 <ul>
                     <li><a href="${getFrontURL(config, "home")}">UCDb</a></li>
+                    <li><div><img src="../global_components/images/face.svg"><strong id="user">${name}</strong></div></li>
                     <li style="float:right"><a class="active" id="logout" href="${getFrontURL(config, "login")}">Logout</a></li>
                 </ul>`;
             } else {

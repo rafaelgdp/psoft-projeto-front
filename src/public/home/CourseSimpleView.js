@@ -1,3 +1,7 @@
+import {getFrontURL}  from "../utils.js"
+
+// Carregando configs
+fetch('../../config.json').then((cr) => cr.json()).then((config) => {
 class CourseSimpleView extends HTMLElement {
     constructor() {
         super();
@@ -13,8 +17,10 @@ class CourseSimpleView extends HTMLElement {
     render() {
         this.$shadow.innerHTML =
             `<link rel="stylesheet" href="course.css">
-             <a href="http://localhost:8081/profile/profile.html?id=${this.id}"><p class="id">${this.id} - ${this.name}</p></a>`;
+             <a href="${getFrontURL(config, "profile")}?id=${this.id}"><p class="id">${this.id} - ${this.name}</p></a>`;
     }
 }
 
 window.customElements.define('simple-course', CourseSimpleView)
+
+})
