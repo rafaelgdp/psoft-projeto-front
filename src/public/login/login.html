@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login UCDb</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../register/register.css'>
+    
 </head>
 <body>
     <main>
+        <div id="navbar"></div>
         <h1>UCDb</h1>
         <p>O UFCG Cursos database é uma aplicação para classificação e reviews de disciplinas de cursos da UFCG.</p>
-        <h2>Página de Login</h2>
-    
-        <div>
-            <p>Email: <input id="email" type="text"></p>
-            <p>Senha: <input id="password" type="password"></p>
+        <div id="form">
+            <h2>Página de Login</h2>
+            <input id="email" type="text" placeholder="Email">
+            <input id="password" type="password" placeholder="Senha">
+            <br>
             <button id="entrarBtn">Entrar</button>
-        </div>
-        <div>
             <p>Não é cadastrado(a)? Ir para <a href="../register/register.html">página de registro</a>.</p>
         </div>
         <script type="module" src="login.js"></script>

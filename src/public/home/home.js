@@ -1,8 +1,11 @@
-import { getURL } from '../utils.js'
+import { getURL, loadNavbar } from '../utils.js'
 import './CourseSimpleView.js'
+import '../global_components/NavbarView.js'
 
 // Carregando configuração
 fetch('../config.json').then((cr) => cr.json()).then((config) => {
+
+loadNavbar()
 
 function checkUser() {
     // If has token and user, return true.
@@ -22,7 +25,7 @@ function updateUiWithUserInfo(user) {
 
 // main
 let isLoadingPage = true
-let loadPage = setTimeout(checkAndUpdate, 2000);
+let loadPage = setInterval(checkAndUpdate, 2000);
 checkAndUpdate()
 
 function checkAndUpdate() {

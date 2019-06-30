@@ -1,9 +1,15 @@
-import { getURL } from '../utils.js'
+import { getURL, loadNavbar } from '../utils.js'
 import "./components/LikeView.js"
 import "./components/CommentView.js"
+import "./components/NewCommentView.js"
+import '../global_components/NavbarView.js'
 
 // Carregando configuração
 fetch('../config.json').then((cr) => cr.json()).then((config) => {
+    
+    loadNavbar()
+
+    var storedComments = []
 
     let host = config.host
     let port = config.port
@@ -33,6 +39,7 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
     .then((data) => {
         if (okLikes) {
             renderLikes(data)
+            renderNewCommentView()
         }
         // Get comments
         let courseCommentsUri = config["path-prefix"] + config["course-comments-uri"] + "?courseid=" + id
@@ -66,22 +73,99 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
         }
     }
 
+    function renderNewCommentView() {
+        let $newCommentView = document.getElementById("newCommentView");
+        $newCommentView.innerHTML = '';
+        $newCommentView.appendChild(document.createElement("new-comment-view"));
+    }
+
     function renderComments(comments) {
         console.log(comments)
         let $comments = document.getElementById("commentList");
         $comments.innerHTML = '';
         if (comments == null || comments.length == 0) {
-            $comments.innerHTML = `<p>Nenhum comentário encontrado! :(</p>`
+            $comments.innerHTML = `<p>Não há comentários neste curso até agora.</p>`
         } else {
-            for (var cIndex in comments) {
-                let comment = comments[cIndex];
-                let novo = document.createElement("comment-view");
-                novo.setAttribute('author', comment.commentAuthor);
-                novo.setAttribute('message', comment.message);
-                novo.setAttribute('date', comment.date);
-                $comments.appendChild(novo)
+            storedComments = []
+            registerComment(comments[0])
+            if (comments.length > 1) {
+                let commentArray = comments[0].commentCourse.comments // comment array
+                console.log("Got this %O", commentArray)
+                for (var i in commentArray) {
+                    if (isComment(commentArray[i])) {
+                        console.log("true")
+                        let c = getComment(commentArray[i])
+                        registerComment(c)
+                        let authorComments = commentArray[i].commentAuthor.comments
+                        console.log("Author array: %O", authorComments)
+                        for(var j in authorComments) {
+                            if (isComment(authorComments[j])) {
+                                registerComment(authorComments[j])
+                            }
+                        }
+                    } else {
+                        console.log("false")
+                    }
+                }
             }
         }
+
+        storedComments.sort(compareComment)
+        for (var c in storedComments) {
+            addCommentView(storedComments[c])
+        }
+    }
+
+    function compareComment(a, b) {
+        const da = a.date;
+        const db = b.date;
+        
+        let comparison = 0;
+        if (da > db) {
+          comparison = 1;
+        } else if (da < db) {
+          comparison = -1;
+        }
+        return comparison;
+    }
+
+    function isComment(c) {
+        console.log("Checking this: %O", c)
+        if (c == null) return false
+        let attrs = ['commentAuthor', 'date', 'message']
+        for (var attr in attrs) {
+            console.log("Checking for ", attr)
+            if (c[attrs[attr]] == null)
+                return false
+        }
+        return true
+    }
+
+    function getComment(c) {
+        let a = "";
+        if (c.commentAuthor.email != null) {
+            a = c.commentAuthor.email
+        } else {
+            a = c.commentAuthor
+        }
+        return {
+            commentAuthor: a,
+            message: c.message,
+            date: c.date
+        }
+    }
+
+    function registerComment(comment) {
+        storedComments.push(comment)
+    }
+
+    function addCommentView(comment) {
+        let $comments = document.getElementById("commentList")
+        let novo = document.createElement("comment-view");
+        novo.setAttribute('author', comment.commentAuthor);
+        novo.setAttribute('message', comment.message);
+        novo.setAttribute('date', comment.date);
+        $comments.appendChild(novo)
     }
 
 }) // end of fetch config

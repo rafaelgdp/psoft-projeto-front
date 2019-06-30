@@ -1,7 +1,10 @@
-import { getURL } from '../utils.js'
+import "../global_components/NavbarView.js"
+import { getURL, loadNavbar } from '../utils.js'
 
 // Carregando configuração
 fetch('../config.json').then((cr) => cr.json()).then((config) => {
+
+loadNavbar()
 
 document.getElementById("entrarBtn").onclick = async function () {
 

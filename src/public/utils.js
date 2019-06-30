@@ -17,4 +17,15 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
-export { getURL, debugLog, parseJwt };
+function loadNavbar() {
+    let $navbar = document.getElementById("navbar");
+    $navbar.innerHTML = '';
+    $navbar.appendChild(document.createElement("navbar-view"));
+}
+
+function getFrontURL(config, page) {
+    //return config["front-host"] + ":" + config["front-port"] + config["front-"+page]
+    return ".." + config["front-"+page]
+}
+
+export { getURL, debugLog, parseJwt, loadNavbar, getFrontURL };

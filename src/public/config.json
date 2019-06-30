@@ -9,5 +9,14 @@
     "logged-uri": "/home/home.html",
     "search-course-substring-uri": "/v1/courses/find",
     "course-profile-uri": "/v1/courses/profile",
-    "course-comments-uri": "/v1/courses/comments"
+    "course-comments-uri": "/v1/courses/comments",
+    "new-comment-uri": "/v1/courses/comment",
+
+    "front-host": "localhost",
+    "front-port": 8081,
+    "front-login": "/login/login.html",
+    "front-home": "/home/home.html",
+    "front-register": "/register/register.html",
+    "front-profile": "/profile/profile.html"
+
 }
