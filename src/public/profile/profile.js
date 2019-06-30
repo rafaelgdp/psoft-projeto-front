@@ -92,26 +92,10 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
             $comments.innerHTML = `<p>Não há comentários neste curso até agora.</p>`
         } else {
             storedComments = []
-            registerComment(comments[0])
-            if (comments.length > 1) {
-                let commentArray = comments[0].commentCourse.comments // comment array
-                console.log("Got this %O", commentArray)
-                for (var i in commentArray) {
-                    if (isComment(commentArray[i])) {
-                        let c = getComment(commentArray[i])
-                        registerComment(c)
-                        let authorComments = commentArray[i].commentAuthor.comments
-                        console.log("Author array: %O", authorComments)
-                        for(var j in authorComments) {
-                            if (isComment(authorComments[j])) {
-                                registerComment(authorComments[j])
-                            }
-                        }
-                    }
-                }
-            }
+            comments.forEach(function(comment) {
+                registerComment(comment)
+              });
         }
-
         storedComments.sort(compareComment)
         for (var c in storedComments) {
             addCommentView(storedComments[c])
@@ -129,34 +113,6 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
           comparison = -1;
         }
         return comparison;
-    }
-
-    function isComment(c) {
-        if (c == null) return false
-        let attrs = ['commentAuthor', 'date', 'message']
-        for (var attr in attrs) {
-            if (c[attrs[attr]] == null)
-                return false
-        }
-        if (c.commentCourse.id == pageId || c.commentCourse == pageId ||
-            c.name == pageName)
-            return true
-        // console.log("Estou dizendo que isto não é comentario: %O", c)
-        return false
-    }
-
-    function getComment(c) {
-        let a = "";
-        if (c.commentAuthor.email != null) {
-            a = c.commentAuthor.email
-        } else {
-            a = c.commentAuthor
-        }
-        return {
-            commentAuthor: a,
-            message: c.message,
-            date: c.date
-        }
     }
 
     function registerComment(comment) {
