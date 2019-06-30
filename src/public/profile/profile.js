@@ -9,6 +9,9 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
     
     loadNavbar()
 
+    var pageId
+    var pageName
+
     var storedComments = []
 
     let host = config.host
@@ -17,6 +20,7 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
     var url_string = window.location.href;
     var url = new URL(url_string);
     var id = url.searchParams.get("id");
+    pageId = id;
     let courseUri = config["path-prefix"] + config["course-profile-uri"] + "?courseid=" + id
 
     let httpGetRequest = {
@@ -67,6 +71,7 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
             $likes.innerHTML = `<p>Perfil não encontrado! :(</p>`
         } else {
             document.getElementById("courseName").innerText = "Nome: " + course.name
+            pageName = course.name
             let novo = document.createElement("like-view");
             novo.setAttribute('likes', course.userLikes || course.likes);
             $likes.appendChild(novo)
@@ -93,7 +98,6 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
                 console.log("Got this %O", commentArray)
                 for (var i in commentArray) {
                     if (isComment(commentArray[i])) {
-                        console.log("true")
                         let c = getComment(commentArray[i])
                         registerComment(c)
                         let authorComments = commentArray[i].commentAuthor.comments
@@ -103,8 +107,6 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
                                 registerComment(authorComments[j])
                             }
                         }
-                    } else {
-                        console.log("false")
                     }
                 }
             }
@@ -130,15 +132,17 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
     }
 
     function isComment(c) {
-        console.log("Checking this: %O", c)
         if (c == null) return false
         let attrs = ['commentAuthor', 'date', 'message']
         for (var attr in attrs) {
-            console.log("Checking for ", attr)
             if (c[attrs[attr]] == null)
                 return false
         }
-        return true
+        if (c.commentCourse.id == pageId || c.commentCourse == pageId ||
+            c.name == pageName)
+            return true
+        // console.log("Estou dizendo que isto não é comentario: %O", c)
+        return false
     }
 
     function getComment(c) {

@@ -1,9 +1,11 @@
 .author {
-    color: blue
+    color: blue;
+    font-weight: bold;
 }
 
 .message {
-    color: black
+    color: indigo;
+    font-weight: bold;
 }
 
 .at {
