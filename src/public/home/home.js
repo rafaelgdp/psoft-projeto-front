@@ -21,6 +21,7 @@ function updateUiWithUserInfo(user) {
         document.getElementById("loadingMessage").style.display = "none"
         document.getElementById("app").style.visibility = "visible"
     } else {
+        document.getElementById("loadingMessage").innerHTML = "Faça login antes!"
         console.log("User chegou null")
     }
 }
