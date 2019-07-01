@@ -107,9 +107,9 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
         const db = b.date;
         
         let comparison = 0;
-        if (da > db) {
+        if (da < db) {
           comparison = 1;
-        } else if (da < db) {
+        } else if (da > db) {
           comparison = -1;
         }
         return comparison;
