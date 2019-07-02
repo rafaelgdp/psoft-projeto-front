@@ -1,13 +1,14 @@
 const https = require('http')
+const config = require('../public/config.json')
 
 function registerCourse(course) {
   course.name = encodeURIComponent(course.name)
   let data = JSON.stringify(course)
 
   const options = {
-    hostname: 'localhost',
-    port: 8080,
-    path: '/v1/courses',
+    hostname: config.host,
+    port: config.port,
+    path: config['path-prefix'] + config['register-course-uri'],
     method: 'POST',
     cache: "no-cache",
     credentials: 'same-origin',

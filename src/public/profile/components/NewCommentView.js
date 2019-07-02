@@ -65,7 +65,6 @@ class NewCommentView extends HTMLElement {
                             },
                             body: comment
                         }
-                        let okComment = false
                         fetch(getURL(host, port, addCommentUri), httpPostRequest)
                         .then((response) => {
                             if (response.ok) {

@@ -1,5 +1,7 @@
 const https = require('http')
+const config = require('../public/config.json')
 
+console.log(config)
 
 function addComment(author, msg) {
   const data = JSON.stringify(
@@ -64,5 +66,5 @@ let comments = [
 ]
 
 for (c in comments) {
-  addComment(comments[c].author, comments[c].message);
+  //addComment(comments[c].author, comments[c].message);
 }

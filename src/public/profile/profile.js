@@ -122,7 +122,10 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
     function addCommentView(comment) {
         let $comments = document.getElementById("commentList")
         let novo = document.createElement("comment-view");
+        novo.setAttribute('commentid', comment.id);
+        console.log(comment.id)
         novo.setAttribute('author', comment.commentAuthor);
+        novo.setAttribute('email', comment.email);
         novo.setAttribute('message', comment.message);
         novo.setAttribute('date', comment.date);
         $comments.appendChild(novo)

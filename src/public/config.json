@@ -1,5 +1,5 @@
 {
-    "host": "192.168.0.22",
+    "host": "localhost",
     "port": 8080,
     "debug": true,
     "path-prefix": "",
@@ -8,11 +8,14 @@
     "login-page": "/login/login.html",
     "logged-uri": "/home/home.html",
     "search-course-substring-uri": "/v1/courses/find",
+    "register-course-uri": "/v1/courses/addcourse",
     "course-profile-uri": "/v1/courses/profile",
+    "delete-all-courses-uri": "/v1/courses/deleteall",
     "course-comments-uri": "/v1/courses/comments",
-    "new-comment-uri": "/v1/courses/comment",
+    "new-comment-uri": "/v1/courses/addcomment",
+    "delete-comment-uri": "/v1/courses/deletecomment",
 
-    "front-host": "192.168.0.22",
+    "front-host": "localhost",
     "front-port": 8081,
     "front-login": "/login/login.html",
     "front-home": "/home/home.html",
