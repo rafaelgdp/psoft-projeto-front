@@ -1,0 +1,42 @@
+/* Tooltip container */
+.tooltip {
+  width: 400px;
+  position: relative;
+  display: flex;
+  border: 1px purple;
+}
+
+.tooltip :hover {
+  background: gray;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%; 
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+#likes {
+  float: left;
+}
+
+#likeBtn {
+  align-content: center;
+  border:1px blue solid;
+  margin: 10px;
+}

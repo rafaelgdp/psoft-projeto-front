@@ -11,39 +11,23 @@ let searchList = []
 
 function checkUser() {
     // If has token and user, return true.
-    return window.sessionStorage.accessToken != null && window.sessionStorage.getItem("user") != null
+    return window.sessionStorage.accessToken != null && JSON.parse(window.sessionStorage.getItem("user")) != null
 }
 
 function updateUiWithUserInfo(user) {
+    let name = "pessoa"
     if (user != null) {
-        let title = document.getElementById("greeting-title")
-        title.innerHTML = "Bem-vind@, " + (user.firstName || "pessoa") + "!"
-        document.getElementById("loadingMessage").style.display = "none"
-        document.getElementById("app").style.visibility = "visible"
-    } else {
-        document.getElementById("loadingMessage").innerHTML = "Faça login antes!"
-        console.log("User chegou null")
+        name = user.firstName
     }
+    let title = document.getElementById("greeting-title")
+    title.innerHTML = "Bem-vind@, " + (name) + "!"
+    document.getElementById("loadingMessage").style.display = "none"
+    document.getElementById("app").style.visibility = "visible"
 }
 
 // main
-let isLoadingPage = true
-let loadPage = setInterval(checkAndUpdate, 2000);
-checkAndUpdate()
-
-function checkAndUpdate() {
-    console.log("Checking...")
-    if (isLoadingPage) {
-        if (checkUser()) {
-            updateUiWithUserInfo(JSON.parse(window.sessionStorage.getItem("user")))
-            isLoadingPage = false;
-            clearTimeout(loadPage)
-            console.log("Logged in!")
-        } else {
-            console.log("No user found...")
-        }
-    }
-}
+console.log("Checking...")
+updateUiWithUserInfo(JSON.parse(window.sessionStorage.getItem("user")))
 
 document.getElementById("searchBtn").onclick = function () {
     let searchString = document.getElementById("searchInput").value

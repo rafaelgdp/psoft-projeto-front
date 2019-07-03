@@ -11,7 +11,6 @@ class CommentView extends HTMLElement {
 
     connectedCallback() {
         this.commentid =  this.getAttribute('commentid');
-        console.log(this.commentid);
         this.author = this.getAttribute('author');
         this.email = this.getAttribute('email');
         this.date = this.getAttribute('date');
@@ -31,7 +30,6 @@ class CommentView extends HTMLElement {
             let host = config.host || "localhost"
             let port = config.port || 8080
             let deleteCommentUri = config["path-prefix"] + config["delete-comment-uri"] + "?commentid=" + commentid
-            console.log("inside ", commentid)
             let httpPostRequest = {
                 method: "DELETE",
                 cache: "no-cache",
@@ -62,8 +60,6 @@ class CommentView extends HTMLElement {
              <p><span class="author">${this.author} (${this.email})</span> disse <span class="message" style="color: indigo; font-weight: bold;">${this.message}</span> em <time class="at">${this.date}</time>.</p>`;
              if (this.user.email === this.email) {
                  this.$shadow.innerHTML += `<button id="deleteBtn">Deletar</button>`;
-             } else {
-                 console.log("Not user")
              }
              this.$shadow.innerHTML += `<hr>`;
     }

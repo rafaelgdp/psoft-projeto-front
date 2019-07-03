@@ -11,6 +11,9 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
 
     var pageId
     var pageName
+    var token = window.sessionStorage.accessToken
+    var user = JSON.parse(window.sessionStorage.getItem("user"))
+    if (token != null && user != null) {
 
     var storedComments = []
 
@@ -63,7 +66,11 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
     .catch((error) => {
         console.log('Request failed: ', error);
     });
-
+    } else {    // end of login check
+        let $likes = document.getElementById("likeView");
+        $likes.innerHTML = `<p>Você precisa logar para acessar os perfis.</p>`
+    }
+    
     function renderLikes(course) {
         let $likes = document.getElementById("likeView");
         $likes.innerHTML = '';
@@ -73,7 +80,8 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
             document.getElementById("courseName").innerText = "Nome: " + course.name
             pageName = course.name
             let novo = document.createElement("like-view");
-            novo.setAttribute('likes', course.userLikes || course.likes);
+            console.log("%O", course)
+            novo.setAttribute('likes', JSON.stringify(course.likes));
             $likes.appendChild(novo)
         }
     }
@@ -123,7 +131,6 @@ fetch('../config.json').then((cr) => cr.json()).then((config) => {
         let $comments = document.getElementById("commentList")
         let novo = document.createElement("comment-view");
         novo.setAttribute('commentid', comment.id);
-        console.log(comment.id)
         novo.setAttribute('author', comment.commentAuthor);
         novo.setAttribute('email', comment.email);
         novo.setAttribute('message', comment.message);

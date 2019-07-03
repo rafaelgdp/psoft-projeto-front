@@ -14,6 +14,7 @@
     "course-comments-uri": "/v1/courses/comments",
     "new-comment-uri": "/v1/courses/addcomment",
     "delete-comment-uri": "/v1/courses/deletecomment",
+    "like-uri": "/v1/courses/addlike",
 
     "front-host": "localhost",
     "front-port": 8081,
