@@ -62,7 +62,7 @@ function register() {
     .then((data) => {
         if (ok) {
             console.log("Usuário criado '" + data.email + "' com sucesso!")
-            window.location.pathname = config['login-page']
+            window.location.pathname = config['front-login']
         }
     })
     .catch((error) => {

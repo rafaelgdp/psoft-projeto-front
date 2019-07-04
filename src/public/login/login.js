@@ -56,7 +56,7 @@ document.getElementById("entrarBtn").onclick = async function () {
 function updateLoggedInUi() {
     let user = window.sessionStorage.getItem("user")
     if (user != "undefined") {
-        window.location.pathname = config['logged-uri']
+        window.location.pathname = config['front-home']
     }
 }
 
